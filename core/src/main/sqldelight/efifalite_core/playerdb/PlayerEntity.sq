@@ -1,0 +1,33 @@
+CREATE TABLE PlayerEntity (
+    remoteId INTEGER PRIMARY KEY AUTOINCREMENT,
+    id INTEGER AS Int NOT NULL,
+    name TEXT NOT NULL,
+    age INTEGER AS Int NOT NULL,
+    nationality TEXT NOT NULL,
+    height TEXT NOT NULL,
+    weight TEXT NOT NULL,
+    photo TEXT NOT NULL,
+    club TEXT NOT NULL,
+    clubPhoto TEXT NOT NULL,
+    league INTEGER AS Int NOT NULL,
+    position TEXT NOT NULL,
+    rating REAL NOT NULL
+);
+
+count:
+SELECT count(*) FROM PlayerEntity;
+
+insert:
+INSERT OR REPLACE
+INTO PlayerEntity
+VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?);
+
+getPlayers:
+SELECT *
+FROM PlayerEntity
+WHERE league = :league
+ORDER BY remoteId
+LIMIT :limit OFFSET :offset;
+
+clearAll:
+DELETE FROM PlayerEntity;

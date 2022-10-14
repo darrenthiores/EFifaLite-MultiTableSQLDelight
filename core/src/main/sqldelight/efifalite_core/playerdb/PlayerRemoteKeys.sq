@@ -1,0 +1,18 @@
+CREATE TABLE PlayerRemoteKeys (
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    prevPage INTEGER,
+    nextPage INTEGER
+);
+
+getRemoteKeys:
+SELECT *
+FROM PlayerRemoteKeys
+WHERE id = :id;
+
+insertRemoteKeys:
+INSERT OR REPLACE
+INTO PlayerRemoteKeys
+VALUES (?, ?, ?);
+
+deleteAllRemoteKeys:
+DELETE FROM PlayerRemoteKeys;

@@ -1,0 +1,45 @@
+CREATE TABLE StartingEntity (
+    id INTEGER AS Int PRIMARY KEY,
+    playerId INTEGER AS Int NOT NULL,
+    name TEXT NOT NULL,
+    age INTEGER AS Int NOT NULL,
+    nationality TEXT NOT NULL,
+    height TEXT NOT NULL,
+    weight TEXT NOT NULL,
+    photo TEXT NOT NULL,
+    club TEXT NOT NULL,
+    clubPhoto TEXT NOT NULL,
+    league INTEGER AS Int NOT NULL,
+    position TEXT NOT NULL,
+    rating REAL NOT NULL,
+    level INTEGER AS Int NOT NULL,
+    place INTEGER AS Int NOT NULL
+);
+
+insertStarting:
+INSERT OR IGNORE
+INTO StartingEntity
+VALUES (:id, :playerId, :name, :age, :nationality, :height, :weight, :photo, :club, :clubPhoto, :league, :position, :rating, :level, :place);
+
+getStarting:
+SELECT *
+FROM StartingEntity
+ORDER BY place;
+
+getStartingById:
+SELECT * FROM StartingEntity
+WHERE id = :id;
+
+checkStartingExist:
+SELECT EXISTS
+(SELECT 1 FROM StartingEntity WHERE playerId = :playerId);
+
+updateStarting:
+INSERT OR REPLACE
+INTO StartingEntity
+VALUES (:id, :playerId, :name, :age, :nationality, :height, :weight, :photo, :club, :clubPhoto, :league, :position, :rating, :level, :place);
+
+deleteUserStarting:
+DELETE FROM
+StartingEntity
+WHERE id = :id;

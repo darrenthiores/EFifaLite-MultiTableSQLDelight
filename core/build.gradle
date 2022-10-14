@@ -1,0 +1,75 @@
+plugins {
+    id 'com.android.library'
+    id 'org.jetbrains.kotlin.android'
+    id 'org.jetbrains.kotlin.plugin.serialization'
+    id 'com.squareup.sqldelight'
+}
+
+apply from:'../sdependencies.gradle'
+
+android {
+    compileSdk 32
+
+    defaultConfig {
+        minSdk 21
+        targetSdk 32
+
+        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+        consumerProguardFiles "consumer-rules.pro"
+
+        buildConfigField("String", "API_KEY", '"Your Api Key"')
+        buildConfigField("String", "BASE_URL", '"v3.football.api-sports.io"')
+        buildConfigField("String", "PASSWORD", '"player_db_password"')
+    }
+
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+        }
+    }
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+    kotlinOptions {
+        jvmTarget = '1.8'
+    }
+}
+
+dependencies {
+    implementation 'androidx.core:core-ktx:1.7.0'
+    implementation 'androidx.appcompat:appcompat:1.4.1'
+    implementation 'com.google.android.material:material:1.6.0'
+    testImplementation 'junit:junit:4.13.2'
+    androidTestImplementation 'androidx.test.ext:junit:1.1.3'
+    androidTestImplementation 'androidx.test.espresso:espresso-core:3.4.0'
+
+    // sqlite chiper
+    implementation "net.zetetic:android-database-sqlcipher:4.4.0"
+    implementation "androidx.sqlite:sqlite-ktx:2.2.0"
+
+    //Ktor dependencies
+    implementation "io.ktor:ktor-client-core:$ktor_version"
+
+    // HTTP engine: The HTTP client used to perform network requests.
+    implementation "io.ktor:ktor-client-android:$ktor_version"
+
+    // The serialization engine used to convert objects to and from JSON.
+    implementation "io.ktor:ktor-client-serialization:$ktor_version"
+
+    // Logging
+    implementation "io.ktor:ktor-client-logging:$ktor_version"
+
+    // serialization kotlinx
+    implementation "org.jetbrains.kotlinx:kotlinx-serialization-json:$serialization_version"
+
+    // data store
+    implementation("androidx.datastore:datastore-preferences:1.0.0")
+}
+
+sqldelight {
+    PlayerDatabase {
+        packageName = "com.darrenthiores.core"
+    }
+}
